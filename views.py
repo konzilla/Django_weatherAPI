@@ -6,7 +6,19 @@ from datetime import date
 
 
 
-def index(request):     
+def index(request):    
+
+    x = datetime.datetime.now()
+    month = x.strftime('%-m')
+    day = x.strftime('%-d')
+    year = x.strftime('%Y')
+    future_date = date(2019, 6, 4) ## returns the number of day from this date
+    today_date = date(int(year), int(month), int(day))
+    number_of_days = (future_date - today_date).days
+    weeks = int((number_of_days % 365) / 7)
+    total_days_completed = (365 - (number_of_days))
+    percent = ('{:.1%}'.format(total_days_completed / 365))
+
 
     ## api with zip code for city locations    
     api_keywest = 'https://api.apixu.com/v1/current.json?key=21ef922400764f56a2c150914182906&q=33040'
@@ -74,9 +86,9 @@ def index(request):
         'az_humidity' : az_humidity,
         'az_icon' : az_icon,
 
-        # 'days' : number_of_days,
-        # 'weeks' : weeks,
-        # 'percent' : percent,
+        'days' : number_of_days,
+        'weeks' : weeks,
+        'percent' : percent,
     }
 
 
